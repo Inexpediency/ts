@@ -69,10 +69,86 @@ function Component(config: ComponentDecorator) {
 })
 class CardComponent {
     constructor(public name: string) {}
+
+    @Bind
+    logName(): void {
+        console.log(`Component Name: ${this.name}`)
+    }
+}
+
+function Bind(_: any, _2: any, descriptor: PropertyDescriptor): PropertyDescriptor {
+    const origin = descriptor.value
+
+    return {
+        configurable: true,
+        enumerable: false,
+        get() {
+            return origin.bind(this)
+        }
+    }
 }
 
 const card = new CardComponent('My Card Component')
 
+const btn = document.querySelector('#btn')
+btn?.addEventListener('click', card.logName)
+
 // --
 
+type ValidatorType = 'required' | 'email'
 
+interface ValidatorConfig {
+    [prop: string]: {
+        [validateProp: string]: ValidatorType
+    }
+}
+
+const validators: ValidatorConfig = {}
+
+function Required(target: any, propName: string) {
+    validators[target.constructor.name] = {
+        ...validators[target.constructor.name],
+        [propName]: 'required',
+    }
+}
+
+function validate(obj: any): boolean {
+    const objConfig = validators[obj.constructor.name]
+    if (!objConfig) {
+        return true
+    }
+
+    let isValid = true
+    Object.keys(objConfig).forEach(key => {
+        if (objConfig[key] === 'required') {
+            isValid = isValid && !!obj[key]
+        }
+    })
+
+    return isValid
+}
+
+class Form {
+    @Required
+    public email: string | void
+
+    constructor(email?: string) {
+        this.email = email
+    }
+}
+
+const form = new Form()
+
+if (validate(form)) {
+    console.log(form)
+} else {
+    console.log('Validation Error')
+}
+
+const validForm = new Form('email@mail.io')
+
+if (validate(validForm)) {
+    console.log(validForm)
+} else {
+    console.log('Validation Error')
+}
