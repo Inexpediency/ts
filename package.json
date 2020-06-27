@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Ythosa/ts/issues"
   },
-  "homepage": "https://github.com/Ythosa/ts#readme"
+  "homepage": "https://github.com/Ythosa/ts#readme",
+  "devDependencies": {
+    "typescript": "^3.9.5"
+  }
 }

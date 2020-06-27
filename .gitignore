@@ -74,3 +74,5 @@ fabric.properties
 
 # .js files
 *.js
+
+node_modules/
