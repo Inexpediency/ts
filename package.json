@@ -1,0 +1,19 @@
+{
+  "name": "ts",
+  "version": "1.0.0",
+  "description": "Repository for learning TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "make"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ythosa/ts.git"
+  },
+  "author": "Ythosa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ythosa/ts/issues"
+  },
+  "homepage": "https://github.com/Ythosa/ts#readme"
+}
